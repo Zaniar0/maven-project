@@ -4,8 +4,7 @@ pipeline {
         stage('build') {
             steps{
                 echo 'YOOO!!!! Bled'
-                echo 'look out for --> $MVNLOCATION <--'
-                sh '${env.mvn}" clean package'
+                bat 'mvn clean package'
             }
         }
     }
