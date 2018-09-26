@@ -3,8 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps{
-                Echo 'priting current working directory'
-                echo $PWD
+                sh $pwd
                 sh 'mvn clean package'
             }
         }
