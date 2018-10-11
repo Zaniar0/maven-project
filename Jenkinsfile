@@ -15,34 +15,18 @@ pipeline {
         }
     }
 
-// Send Slack notification function
-def sendSlackNotification()
-    {
-        // build status of null means successful
-        buildStatus =  currentBuild.result
+  post {
+    success {
+      slackSend color: "#00FF00", channel: "#test-jenkins", message: "Build Success: Job ${env.JOB_NAME} [${env.BUILD_NUMBER}] (${env.BUILD_URL}) by ${env.CHANGE_AUTHOR}"
+    }
 
-        // Default values
-        def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
-        def summary = "${subject} (${env.BUILD_URL})"
+    failure {
+      deleteDir()
+      slackSend color: "#FF0000", channel: "#test-jenkins", message: "Build failure: Job ${env.JOB_NAME} [${env.BUILD_NUMBER}] (${env.BUILD_URL}) by ${env.CHANGE_AUTHOR}"
+    }
 
-        // Set notification color based on build status
-        if (buildStatus == 'STARTED') {
-            color = 'YELLOW'
-            colorCode = '#FFFF00'
-
-        } else if (buildStatus == 'SUCCESS') {
-            color = 'GREEN'
-            colorCode = '#00FF00'
-
-        } else {
-            color = 'RED'
-            colorCode = '#FF0000'
-        }
-
-        // Set slack channel
-        channel = "test-jenkins"
-
-        // Send notifications
-        slackSend (color: colorCode, message: summary, channel: "#${channel}" )
+    unstable {
+      deleteDir()
+      slackSend color: "#FFFF00", channel: "#test-jenkins", message: "Build unstable: Job ${env.JOB_NAME} [${env.BUILD_NUMBER}] (${env.BUILD_URL}) by ${env.CHANGE_AUTHOR}"
     }
 }
