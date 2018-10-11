@@ -40,7 +40,7 @@ def sendSlackNotification()
         }
 
         // Set slack channel
-        channel = "jenkins_notifications"
+        channel = "test-jenkins"
 
         // Send notifications
         slackSend (color: colorCode, message: summary, channel: "#${channel}" )
