@@ -14,7 +14,7 @@ pipeline {
             }
         }
     }
-}
+
 // Send Slack notification function
 def sendSlackNotification()
     {
@@ -45,3 +45,4 @@ def sendSlackNotification()
         // Send notifications
         slackSend (color: colorCode, message: summary, channel: "#${channel}" )
     }
+}
