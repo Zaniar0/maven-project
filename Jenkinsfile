@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Two') {
             steps{
-                echo 'YOOO!!!! Zaniar'
+                echo 'YOOO!!!! Zaniar!!'
                 //bat 'mvn clean package'
             }
         }
